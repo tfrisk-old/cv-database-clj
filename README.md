@@ -1,8 +1,8 @@
 # cvpankki
 
-I'm an app. Or maybe I'm a library? I haven't decided yet. 
+This project will eventually hold our CV details for easy edit and export.
 
-The choice is up to you!
+Currently this is a Clojure learning project.
 
 ## Usage
 
