@@ -44,3 +44,8 @@
          :educationhistory (conj '() empty-education-map),
          :skills '())
 )
+
+;nested map assoc-in examples: 
+;(def cv-foo (empty-cv-map "foo"))
+;(assoc-in cv-foo [:person :firstname] "Teemu")
+;(assoc-in cv-teemu [:skills] '("Clojure", "Project Management"))
