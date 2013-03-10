@@ -41,6 +41,6 @@
          :createdate (cvpankki.date/get-current-iso-8601-date)
          :person empty-person-map,
          :workhistory (conj '() empty-company-map),
-         :educationhistory '(),
+         :educationhistory (conj '() empty-education-map),
          :skills '())
 )
