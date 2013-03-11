@@ -6,4 +6,5 @@
   :dependencies [
                  [org.clojure/clojure "1.5.0"]
                  [clj-time "0.4.4"] ;time functionalities
+                 [noir "1.2.2" :exclusions [org.clojure/clojure ]] ;noir tries to get clojure
                 ])
