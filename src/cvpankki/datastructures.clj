@@ -35,6 +35,18 @@
 		}
 )
 
+(def empty-skill-map
+  '{
+			:label "Clojure",
+			:category "programming",
+			:description "Clojure (pronounced like \"closure\") is a dialect of
+the Lisp programming language created by Rich Hickey. It is a functional
+general-purpose language. Its focus on programming with immutable values
+and explicit progression-of-time constructs are intended to facilitate the
+development of more robust programs, particularly multithreaded ones."
+		}
+)
+
 (defn empty-cv-map [cvname]
   (assoc '{}
          :name cvname,
@@ -42,8 +54,7 @@
          :person empty-person-map,
          :workhistory (conj '() empty-company-map),
          :educationhistory (conj '() empty-education-map),
-         :skills '())
-)
+         :skills (conj '() empty-skill-map)))
 
 ;nested map assoc-in examples: 
 ;(def cv-foo (empty-cv-map "foo"))
@@ -61,3 +72,6 @@
 
 (defn find-cv-by-id [id]
   (assoc empty-cv-map :cvid id))
+
+(defn find-skills-list-by-id [id]
+  '[(assoc empty-skill-map :id id),(assoc empty-skill-map :id id)])

@@ -13,6 +13,19 @@
      (include-css "/css/cvpankki.css")]
     [:body content]))
 
+(defpartial show-skill-item [{:keys [label category]}]
+  [:li.skill 
+   [:p label "("category")"]])
+
+(defpartial show-skills-list [skills-list]
+  [:div.row [:div.content-area
+  [:div.column
+   [:h3 "Skills" ]
+    [:ul
+     (map show-skill-item skills-list)]]
+  [:div.clear]
+  ]])
+
 ;partial for showing user data
 (defpartial show-person-fields [{:keys [firstname lastname birthdate description]}]
   [:div.row [:div.content-area
@@ -119,6 +132,7 @@
     (edit-person-fields (cv.data/find-person-by-id id))
     (edit-company-fields (cv.data/find-company-by-id id))
     (edit-education-fields (cv.data/find-education-by-id id))
+    (show-skills-list (cv.data/find-skills-list-by-id id))
     ))
 
 (defpartial success-notification [{:keys [message]}]
