@@ -51,5 +51,13 @@
 ;(assoc-in cv-teemu [:skills] '("Clojure", "Project Management"))
 
 (defn find-person-by-id [id]
-  (assoc empty-person-map :description id)
-)
+  (assoc empty-person-map :description id))
+
+(defn find-company-by-id [id]
+  (assoc empty-company-map :description id))
+
+(defn find-education-by-id [id]
+  (assoc empty-education-map :description id))
+
+(defn find-cv-by-id [id]
+  (assoc empty-cv-map :cvid id))

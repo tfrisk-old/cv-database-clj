@@ -15,7 +15,6 @@
 
 ;partial for showing user data
 (defpartial show-person-fields [{:keys [firstname lastname birthdate description]}]
-  (layout
     [:div.row
      [:div.content-area
       [:div.column
@@ -25,11 +24,40 @@
        [:p "Description " description]
       ]
       [:div.clear] ;this ensures our styling stays on the whole column
-     ]]))
+     ]])
 
-;partial for showing user data
+;partial for showing company data
+(defpartial show-company-fields [{:keys [name title startdate stopdate description]}]
+    [:div.row
+     [:div.content-area
+      [:div.column
+       [:h3 "Company details" ]
+       [:p "Name " name " " name]
+       [:p "Title " title]
+       [:p "Start date " startdate]
+       [:p "Stop date " stopdate]
+       [:p "Description " description]
+      ]
+      [:div.clear] ;this ensures our styling stays on the whole column
+     ]])
+
+;partial for showing education data
+(defpartial show-education-fields [{:keys [keeper name startdate stopdate description]}]
+    [:div.row
+     [:div.content-area
+      [:div.column
+       [:h3 "Education details" ]
+       [:p "Education provider " keeper]
+       [:p "Name " name]
+       [:p "Start date " startdate]
+       [:p "Stop date " stopdate]
+       [:p "Description " description]
+      ]
+      [:div.clear] ;this ensures our styling stays on the whole column
+     ]])
+
+;partial for editing user data
 (defpartial edit-person-fields [{:keys [firstname lastname birthdate description]}]
-  (layout
     [:div.row
      [:div.content-area
       [:div.column
@@ -46,10 +74,19 @@
         [:p (submit-button "Save user") ])
       ]
       [:div.clear] ;this ensures our styling stays on the whole column
-     ]]))
+     ]])
 
 (defpage "/user/:id" {:keys [id]}
-  (edit-person-fields (cv.data/find-person-by-id id)))
+  (layout
+    (edit-person-fields (cv.data/find-person-by-id id))))
+
+(defpage "/company/:id" {:keys [id]}
+  (layout
+    (show-company-fields (cv.data/find-company-by-id id))))
+
+(defpage "/education/:id" {:keys [id]}
+  (layout
+    (show-education-fields (cv.data/find-education-by-id id))))
 
 (defpage [:post "/user"] {:as user}
   (layout
