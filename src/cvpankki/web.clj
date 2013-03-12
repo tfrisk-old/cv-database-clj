@@ -24,11 +24,11 @@
   [:div.clear]]])
 
 ;partial for showing company data
-(defpartial show-company-fields [{:keys [name title startdate stopdate description]}]
+(defpartial show-company-fields [{:keys [companyname title startdate stopdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Company details" ]
-   [:p "Name " name " " name]
+   [:p "Company name " companyname]
    [:p "Title " title]
    [:p "Start date " startdate]
    [:p "Stop date " stopdate]
@@ -65,13 +65,13 @@
    )][:div.clear]]])
 
 ;partial for editing company data
-(defpartial edit-company-fields [{:keys [name title startdate stopdate description]}]
+(defpartial edit-company-fields [{:keys [companyname title startdate stopdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Company details" ]
    (form-to [:post "/company"]
-    [:p (label "name" "Company name")
-    (text-field "name" name) ]
+    [:p (label "companyname" "Company name")
+    (text-field "companyname" companyname) ]
     [:p (label "title" "Title")
     (text-field "title" title ) ]
     [:p (label "startdate" "Start date")
