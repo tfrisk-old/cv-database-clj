@@ -23,7 +23,7 @@
 
 (def empty-education-map
   '{
-			:coursekeeper "Institution",
+			:provider "Institution",
 			:coursename "Name",
 			:startdate "1.1.1970",
 			:stopdate "1.1.1970",
