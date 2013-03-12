@@ -1,10 +1,15 @@
 (ns cvpankki.web
-  (:use noir.core
-        hiccup.core
-        hiccup.page-helpers
-        hiccup.form-helpers)
-  (:require [cvpankki.datastructures :as cv.data])
-  (:require [noir.server :as server]))
+  (:use compojure.core)
+  (:require [compojure.route :as route]))
+
+(defroutes app
+  (GET "/" [] "<h1>Hello World!</h1>")
+  (route/not-found "<h1>Page not found.</h1>")
+  (GET "/user/:id" [id] (str "<h1>Hello user " id "</h1>"))
+  (GET "/company/:id" [id] (str "<h1>Hello company " id "</h1>"))
+  (GET "/education/:id" [id] (str "<h1>Hello education " id "</h1>"))
+  (GET "/cv/:id" [id] (str "<h1>Hello cv " id "</h1>"))
+  )
 
 (defpartial layout [& content]
   (html5
@@ -115,25 +120,25 @@
     [:p (submit-button "Save education") ]
   )][:div.clear]]])
 
-(defpage "/user/:id" {:keys [id]}
-  (layout
-    (edit-person-fields (cv.data/find-person-by-id id))))
+;(defpage "/user/:id" {:keys [id]}
+;  (layout
+;    (edit-person-fields (cv.data/find-person-by-id id))))
 
-(defpage "/company/:id" {:keys [id]}
-  (layout
-    (edit-company-fields (cv.data/find-company-by-id id))))
+;(defpage "/company/:id" {:keys [id]}
+;  (layout
+;    (edit-company-fields (cv.data/find-company-by-id id))))
 
-(defpage "/education/:id" {:keys [id]}
-  (layout
-    (edit-education-fields (cv.data/find-education-by-id id))))
+;(defpage "/education/:id" {:keys [id]}
+;  (layout
+;    (edit-education-fields (cv.data/find-education-by-id id))))
 
-(defpage "/cv/:id" {:keys [id]}
-  (layout
-    (edit-person-fields (cv.data/find-person-by-id id))
-    (edit-company-fields (cv.data/find-company-by-id id))
-    (edit-education-fields (cv.data/find-education-by-id id))
-    (show-skills-list (cv.data/find-skills-list-by-id id))
-    ))
+;(defpage "/cv/:id" {:keys [id]}
+;  (layout
+;    (edit-person-fields (cv.data/find-person-by-id id))
+;    (edit-company-fields (cv.data/find-company-by-id id))
+;    (edit-education-fields (cv.data/find-education-by-id id))
+;    (show-skills-list (cv.data/find-skills-list-by-id id))
+;    ))
 
 (defpartial success-notification [{:keys [message]}]
   (layout
@@ -143,19 +148,16 @@
        [:p message]]
        [:div.clear]]]))
 
-(defpage [:post "/user"] {:as user}
-  (success-notification ["User saved"])
-    (render "/user/:id" user))
+;(defpage [:post "/user"] {:as user}
+;  (success-notification ["User saved"])
+;    (render "/user/:id" user))
 
-(defpage [:post "/company"] {:as company}
-  (success-notification ["Company saved"])
-    (render "/company/:id" company))
+;(defpage [:post "/company"] {:as company}
+;  (success-notification ["Company saved"])
+;    (render "/company/:id" company))
 
-(defpage [:post "/education"] {:as education}
-  (success-notification ["Education saved"])
-    (render "/education/:id" education))
-
-(defpage "/" []
-  "hello")
+;(defpage [:post "/education"] {:as education}
+;  (success-notification ["Education saved"])
+;    (render "/education/:id" education))
 
 ;(server/start 8080)
