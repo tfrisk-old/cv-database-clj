@@ -1,10 +1,6 @@
 (ns cvpankki.datastructures
   (:use [cvpankki.date :as cvpankki.date]))
 
-(defn find-person-by-id [id]
-  (assoc empty-person-map :description id)
-)
-
 (def empty-person-map
   '{
     :firstname "Firstname",
@@ -53,3 +49,7 @@
 ;(def cv-foo (empty-cv-map "foo"))
 ;(assoc-in cv-foo [:person :firstname] "Teemu")
 ;(assoc-in cv-teemu [:skills] '("Clojure", "Project Management"))
+
+(defn find-person-by-id [id]
+  (assoc empty-person-map :description id)
+)
