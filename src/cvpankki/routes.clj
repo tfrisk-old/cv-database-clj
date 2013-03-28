@@ -16,13 +16,6 @@
   (GET "/cv/:id" [id] (str "<h1>Hello cv " id "</h1>"))
   )
 
-(defn index-page []
-  (html5
-    [:head
-      [:title "Hello World"]
-      (include-css "/css/style.css")]
-    [:body
-      [:h1 "Hello World"]]))
 
 (def app
   (-> (handler/site main-routes)

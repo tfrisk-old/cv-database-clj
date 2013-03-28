@@ -7,6 +7,6 @@
                  [org.clojure/clojure "1.5.0"]
                  [clj-time "0.4.4"] ;time functionalities
                  [compojure "1.1.5"]
-                 [hiccup "1.0.0"]]
-  :plugins [[lein-ring "0.7.1"]]
+		 [hiccup "1.0.3"]]
+  :plugins [[lein-ring "0.8.3"]]
   :ring {:handler cvpankki.routes/app})

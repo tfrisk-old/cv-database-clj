@@ -1,21 +1,20 @@
 (ns cvpankki.web
   (:use compojure.core)
+  (:use [hiccup core form page])
   (:require [compojure.route :as route]))
 
-(defroutes app
-  (GET "/" [] "<h1>Hello World!</h1>")
-  (route/not-found "<h1>Page not found.</h1>")
-  (GET "/user/:id" [id] (str "<h1>Hello user " id "</h1>"))
-  (GET "/company/:id" [id] (str "<h1>Hello company " id "</h1>"))
-  (GET "/education/:id" [id] (str "<h1>Hello education " id "</h1>"))
-  (GET "/cv/:id" [id] (str "<h1>Hello cv " id "</h1>"))
-  )
+(defn index-page []
+  (html5
+    [:head
+      [:title "Hello World"]
+      (include-css "/css/style.css")]
+    [:body
+      [:h1 "Hello World"]]))
 
 (defn layout [& content]
   (html5
     [:head
-     [:title "cvpankki"]
-     (include-css "/css/cvpankki.css")]
+     [:title "cvpankki"]]
     [:body content]))
 
 (defn show-skill-item [{:keys [label category]}]
