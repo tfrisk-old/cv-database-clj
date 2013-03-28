@@ -1,6 +1,7 @@
 (ns cvpankki.web
   (:use compojure.core)
   (:use [hiccup core form page])
+  (:use [cvpankki.datastructures :as cv.data])
   (:require [compojure.route :as route]))
 
 (defn index-page []
@@ -119,9 +120,9 @@
     [:p (submit-button "Save education") ]
   )][:div.clear]]])
 
-;(defpage "/user/:id" {:keys [id]}
-;  (layout
-;    (edit-person-fields (cv.data/find-person-by-id id))))
+(defn userpage [id]
+  (layout
+    (edit-person-fields (cv.data/find-person-by-id id))))
 
 ;(defpage "/company/:id" {:keys [id]}
 ;  (layout

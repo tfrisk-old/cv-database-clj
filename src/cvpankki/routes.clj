@@ -10,7 +10,7 @@
   (GET "/" [] (index-page))
   (route/resources "/")
   (route/not-found "Page not found")
-  (GET "/user/:id" [id] (str "<h1>Hello user " id "</h1>"))
+  (GET "/user/:id" [id] (userpage id))
   (GET "/company/:id" [id] (str "<h1>Hello company " id "</h1>"))
   (GET "/education/:id" [id] (str "<h1>Hello education " id "</h1>"))
   (GET "/cv/:id" [id] (str "<h1>Hello cv " id "</h1>"))
