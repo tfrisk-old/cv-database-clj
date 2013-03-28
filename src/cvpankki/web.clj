@@ -11,18 +11,18 @@
   (GET "/cv/:id" [id] (str "<h1>Hello cv " id "</h1>"))
   )
 
-(defpartial layout [& content]
+(defn layout [& content]
   (html5
     [:head
      [:title "cvpankki"]
      (include-css "/css/cvpankki.css")]
     [:body content]))
 
-(defpartial show-skill-item [{:keys [label category]}]
+(defn show-skill-item [{:keys [label category]}]
   [:li.skill 
    [:p label "("category")"]])
 
-(defpartial show-skills-list [skills-list]
+(defn show-skills-list [skills-list]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Skills" ]
@@ -32,7 +32,7 @@
   ]])
 
 ;partial for showing user data
-(defpartial show-person-fields [{:keys [firstname lastname birthdate description]}]
+(defn show-person-fields [{:keys [firstname lastname birthdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "User details" ]
@@ -42,7 +42,7 @@
   [:div.clear]]])
 
 ;partial for showing company data
-(defpartial show-company-fields [{:keys [companyname title startdate stopdate description]}]
+(defn show-company-fields [{:keys [companyname title startdate stopdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Company details" ]
@@ -54,7 +54,7 @@
   [:div.clear]]])
 
 ;partial for showing education data
-(defpartial show-education-fields [{:keys [provider coursename startdate stopdate description]}]
+(defn show-education-fields [{:keys [provider coursename startdate stopdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Education details" ]
@@ -66,7 +66,7 @@
   [:div.clear]]])
 
 ;partial for editing user data
-(defpartial edit-person-fields [{:keys [firstname lastname birthdate description]}]
+(defn edit-person-fields [{:keys [firstname lastname birthdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "User details" ]
@@ -83,7 +83,7 @@
    )][:div.clear]]])
 
 ;partial for editing company data
-(defpartial edit-company-fields [{:keys [companyname title startdate stopdate description]}]
+(defn edit-company-fields [{:keys [companyname title startdate stopdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Company details" ]
@@ -102,7 +102,7 @@
   )][:div.clear]]])
 
 ;partial for editing education data
-(defpartial edit-education-fields [{:keys [provider coursename startdate stopdate description]}]
+(defn edit-education-fields [{:keys [provider coursename startdate stopdate description]}]
   [:div.row [:div.content-area
   [:div.column
    [:h3 "Education details" ]
@@ -140,7 +140,7 @@
 ;    (show-skills-list (cv.data/find-skills-list-by-id id))
 ;    ))
 
-(defpartial success-notification [{:keys [message]}]
+(defn success-notification [{:keys [message]}]
   (layout
     [:div.row
      [:div.content-area.notice
