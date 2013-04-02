@@ -73,5 +73,8 @@ development of more robust programs, particularly multithreaded ones."
 (defn find-cv-by-id [id]
   (assoc empty-cv-map :cvid id))
 
+(defn find-skill-by-id [id]
+  (assoc empty-skill-map :id id))
+
 (defn find-skills-list-by-id [id]
   '[(assoc empty-skill-map :id id),(assoc empty-skill-map :id id)])

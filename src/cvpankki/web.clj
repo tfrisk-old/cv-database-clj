@@ -4,11 +4,17 @@
   (:use [cvpankki.datastructures :as cv.data])
   (:require [compojure.route :as route]))
 
-(defn index-page []
+; ------------ base layout ------------
+(defn layout [& content]
   (html5
     [:head
-      [:title "Hello World"]
-      (include-css "/css/style.css")]
+     [:title "cvpankki"]
+     (include-css "/css/cvpankki.css")]
+    [:body content]))
+
+; ------------ landing page ------------
+(defn index-page []
+  (layout
     [:body
       [:h1 "cvpankki"]
       [:ul
@@ -18,13 +24,16 @@
         [:li (link-to "/cv/all" "CVs")]
       ]]))
 
-(defn layout [& content]
-  (html5
-    [:head
-     [:title "cvpankki"]
-     (include-css "/css/cvpankki.css")]
-    [:body content]))
+; ------------ notifications ------------
+(defn success-notification [{:keys [message]}]
+  (layout
+    [:div.row
+     [:div.content-area.notice
+      [:div.column
+       [:p message]]
+       [:div.clear]]]))
 
+; ------------ skill ------------
 (defn show-skill-item [{:keys [label category]}]
   [:li.skill 
    [:p label "("category")"]])
@@ -38,6 +47,27 @@
   [:div.clear]
   ]])
 
+;partial for showing skill data
+(defn edit-skill-fields [{:keys [label category description]}]
+  [:div.row [:div.content-area
+  [:div.column
+   [:h3 "Skill details" ]
+   [:p "Label " label]
+   [:p "Category " category]
+   [:p "Description " description]]
+  [:div.clear]]])
+
+(defn skillpage [id]
+  (layout
+    (edit-skill-fields (cv.data/find-skill-by-id id))))
+
+; List all skills on single page
+(defn skilllistpage []
+  (layout
+    "Skill listing"
+    (cv.data/find-skill-by-id "all")))
+
+; ------------ person/user ------------
 ;partial for showing user data
 (defn show-person-fields [{:keys [firstname lastname birthdate description]}]
   [:div.row [:div.content-area
@@ -45,30 +75,6 @@
    [:h3 "User details" ]
    [:p "Name " firstname " " lastname]
    [:p "Birthday " birthdate]
-   [:p "Description " description]]
-  [:div.clear]]])
-
-;partial for showing company data
-(defn show-company-fields [{:keys [companyname title startdate stopdate description]}]
-  [:div.row [:div.content-area
-  [:div.column
-   [:h3 "Company details" ]
-   [:p "Company name " companyname]
-   [:p "Title " title]
-   [:p "Start date " startdate]
-   [:p "Stop date " stopdate]
-   [:p "Description " description]]
-  [:div.clear]]])
-
-;partial for showing education data
-(defn show-education-fields [{:keys [provider coursename startdate stopdate description]}]
-  [:div.row [:div.content-area
-  [:div.column
-   [:h3 "Education details" ]
-   [:p "Education provider " provider]
-   [:p "Course name " coursename]
-   [:p "Start date " startdate]
-   [:p "Stop date " stopdate]
    [:p "Description " description]]
   [:div.clear]]])
 
@@ -89,6 +95,29 @@
     [:p (submit-button "Save user") ]
    )][:div.clear]]])
 
+(defn userpage [id]
+  (layout
+    (edit-person-fields (cv.data/find-person-by-id id))))
+
+; List all users on single page
+(defn userlistpage []
+  (layout
+    "User listing"
+    (cv.data/find-person-by-id "all")))
+
+; ------------ company ------------
+;partial for showing company data
+(defn show-company-fields [{:keys [companyname title startdate stopdate description]}]
+  [:div.row [:div.content-area
+  [:div.column
+   [:h3 "Company details" ]
+   [:p "Company name " companyname]
+   [:p "Title " title]
+   [:p "Start date " startdate]
+   [:p "Stop date " stopdate]
+   [:p "Description " description]]
+  [:div.clear]]])
+
 ;partial for editing company data
 (defn edit-company-fields [{:keys [companyname title startdate stopdate description]}]
   [:div.row [:div.content-area
@@ -107,6 +136,29 @@
     (text-field "description" description) ]
     [:p (submit-button "Save company") ]
   )][:div.clear]]])
+
+(defn companypage [id]
+  (layout
+    (edit-company-fields (cv.data/find-company-by-id id))))
+
+; List all companies on single page
+(defn companylistpage []
+  (layout
+    "Company listing"
+    (cv.data/find-company-by-id "all")))
+
+; ------------ education ------------
+;partial for showing education data
+(defn show-education-fields [{:keys [provider coursename startdate stopdate description]}]
+  [:div.row [:div.content-area
+  [:div.column
+   [:h3 "Education details" ]
+   [:p "Education provider " provider]
+   [:p "Course name " coursename]
+   [:p "Start date " startdate]
+   [:p "Stop date " stopdate]
+   [:p "Description " description]]
+  [:div.clear]]])
 
 ;partial for editing education data
 (defn edit-education-fields [{:keys [provider coursename startdate stopdate description]}]
@@ -127,24 +179,6 @@
     [:p (submit-button "Save education") ]
   )][:div.clear]]])
 
-(defn userpage [id]
-  (layout
-    (edit-person-fields (cv.data/find-person-by-id id))))
-
-; List all users on single page
-(defn userlistpage []
-  (layout
-    "User listing"))
-
-(defn companypage [id]
-  (layout
-    (edit-company-fields (cv.data/find-company-by-id id))))
-
-; List all companies on single page
-(defn companylistpage []
-  (layout
-    "Company listing"))
-
 (defn educationpage [id]
   (layout
     (edit-education-fields (cv.data/find-education-by-id id))))
@@ -152,8 +186,10 @@
 ; List all educations on single page
 (defn educationlistpage []
   (layout
-    "Education listing"))
+    "Education listing"
+    (cv.data/find-education-by-id "all")))
 
+; ------------ cv ------------
 (defn cvpage [id]
   (layout
     (edit-person-fields (cv.data/find-person-by-id id))
@@ -165,15 +201,8 @@
 ; List all cvs on single page
 (defn cvlistpage []
   (layout
-    "CV listing"))
-
-(defn success-notification [{:keys [message]}]
-  (layout
-    [:div.row
-     [:div.content-area.notice
-      [:div.column
-       [:p message]]
-       [:div.clear]]]))
+    "CV listing"
+    (cv.data/find-cv-by-id "all")))
 
 ;(defpage [:post "/user"] {:as user}
 ;  (success-notification ["User saved"])

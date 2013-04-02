@@ -16,6 +16,8 @@
   (GET "/education/:id" [id] (educationpage id))
   (GET "/cv/all" [] (cvlistpage))
   (GET "/cv/:id" [id] (cvpage id))
+  (GET "/skill/all" [] (skilllistpage))
+  (GET "/skill/:id" [id] (skillpage id))
   (route/files "/" {:root (str (System/getProperty "user.dir") "/resources/public")})
   (route/not-found "Page not found")
   )
