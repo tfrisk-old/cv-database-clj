@@ -1,6 +1,6 @@
 (ns cvpankki.web
   (:use compojure.core)
-  (:use [hiccup core form page])
+  (:use [hiccup core form page element])
   (:use [cvpankki.datastructures :as cv.data])
   (:require [compojure.route :as route]))
 
@@ -10,7 +10,13 @@
       [:title "Hello World"]
       (include-css "/css/style.css")]
     [:body
-      [:h1 "Hello World"]]))
+      [:h1 "cvpankki"]
+      [:ul
+        [:li (link-to "/user/all" "Users")]
+        [:li (link-to "/company/all" "Companies")]
+        [:li (link-to "/education/all" "Educations")]
+        [:li (link-to "/cv/all" "CVs")]
+      ]]))
 
 (defn layout [& content]
   (html5
@@ -125,13 +131,28 @@
   (layout
     (edit-person-fields (cv.data/find-person-by-id id))))
 
+; List all users on single page
+(defn userlistpage []
+  (layout
+    "User listing"))
+
 (defn companypage [id]
   (layout
     (edit-company-fields (cv.data/find-company-by-id id))))
 
+; List all companies on single page
+(defn companylistpage []
+  (layout
+    "Company listing"))
+
 (defn educationpage [id]
   (layout
     (edit-education-fields (cv.data/find-education-by-id id))))
+
+; List all educations on single page
+(defn educationlistpage []
+  (layout
+    "Education listing"))
 
 (defn cvpage [id]
   (layout
@@ -140,6 +161,11 @@
     (edit-education-fields (cv.data/find-education-by-id id))
     (show-skills-list (cv.data/find-skills-list-by-id id))
     ))
+
+; List all cvs on single page
+(defn cvlistpage []
+  (layout
+    "CV listing"))
 
 (defn success-notification [{:keys [message]}]
   (layout
