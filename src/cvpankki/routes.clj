@@ -8,12 +8,12 @@
 
 (defroutes main-routes
   (GET "/" [] (index-page))
-  (route/resources "/")
-  (route/not-found "Page not found")
   (GET "/user/:id" [id] (userpage id))
-  (GET "/company/:id" [id] (str "<h1>Hello company " id "</h1>"))
-  (GET "/education/:id" [id] (str "<h1>Hello education " id "</h1>"))
-  (GET "/cv/:id" [id] (str "<h1>Hello cv " id "</h1>"))
+  (GET "/company/:id" [id] (companypage id))
+  (GET "/education/:id" [id] (educationpage id))
+  (GET "/cv/:id" [id] (cvpage id))
+  (route/files "/" {:root (str (System/getProperty "user.dir") "/resources/public")})
+  (route/not-found "Page not found")
   )
 
 

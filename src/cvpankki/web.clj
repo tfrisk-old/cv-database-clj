@@ -15,7 +15,8 @@
 (defn layout [& content]
   (html5
     [:head
-     [:title "cvpankki"]]
+     [:title "cvpankki"]
+     (include-css "/css/cvpankki.css")]
     [:body content]))
 
 (defn show-skill-item [{:keys [label category]}]
@@ -124,21 +125,21 @@
   (layout
     (edit-person-fields (cv.data/find-person-by-id id))))
 
-;(defpage "/company/:id" {:keys [id]}
-;  (layout
-;    (edit-company-fields (cv.data/find-company-by-id id))))
+(defn companypage [id]
+  (layout
+    (edit-company-fields (cv.data/find-company-by-id id))))
 
-;(defpage "/education/:id" {:keys [id]}
-;  (layout
-;    (edit-education-fields (cv.data/find-education-by-id id))))
+(defn educationpage [id]
+  (layout
+    (edit-education-fields (cv.data/find-education-by-id id))))
 
-;(defpage "/cv/:id" {:keys [id]}
-;  (layout
-;    (edit-person-fields (cv.data/find-person-by-id id))
-;    (edit-company-fields (cv.data/find-company-by-id id))
-;    (edit-education-fields (cv.data/find-education-by-id id))
-;    (show-skills-list (cv.data/find-skills-list-by-id id))
-;    ))
+(defn cvpage [id]
+  (layout
+    (edit-person-fields (cv.data/find-person-by-id id))
+    (edit-company-fields (cv.data/find-company-by-id id))
+    (edit-education-fields (cv.data/find-education-by-id id))
+    (show-skills-list (cv.data/find-skills-list-by-id id))
+    ))
 
 (defn success-notification [{:keys [message]}]
   (layout
