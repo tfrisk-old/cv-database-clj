@@ -77,4 +77,4 @@ development of more robust programs, particularly multithreaded ones."
   (assoc empty-skill-map :id id))
 
 (defn find-skills-list-by-id [id]
-  '[(assoc empty-skill-map :id id),(assoc empty-skill-map :id id)])
+  [(assoc empty-skill-map :id id),(assoc empty-skill-map :id id)])
