@@ -64,6 +64,9 @@ development of more robust programs, particularly multithreaded ones."
 (defn find-person-by-id [id]
   (assoc empty-person-map :description id))
 
+(defn find-all-persons []
+  '[empty-person-map,empty-person-map,empty-person-map])
+
 (defn find-company-by-id [id]
   (assoc empty-company-map :description id))
 

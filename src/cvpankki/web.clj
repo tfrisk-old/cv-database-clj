@@ -99,11 +99,15 @@
   (layout
     (edit-person-fields (cv.data/find-person-by-id id))))
 
+(defn show-user-listitem [{:keys [firstname lastname]}]
+  [:li firstname lastname])
+
 ; List all users on single page
 (defn userlistpage []
   (layout
-    "User listing"
-    (cv.data/find-person-by-id "all")))
+    [:h1 "User listing"]
+    ;(map show-user-listitem (cv.data/find-all-persons))))
+    (cv.data/find-all-persons)))
 
 ; ------------ company ------------
 ;partial for showing company data
